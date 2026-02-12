@@ -10,11 +10,17 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allowed_origins = [
       'http://localhost:5173',
       'http://localhost:3001',
-      'https://editor.swagger.io'
+      'https://editor.swagger.io',
+      'https://fintech-fraud-detection.vercel.app'
     ]
     
-    # Add production frontend URL if configured
-    allowed_origins << ENV['FRONTEND_URL'] if ENV['FRONTEND_URL'].present?
+    # Add production frontend URL if configured (for flexibility)
+    if ENV['FRONTEND_URL'].present?
+      allowed_origins << ENV['FRONTEND_URL']
+      Rails.logger.info "CORS: Added FRONTEND_URL: #{ENV['FRONTEND_URL']}"
+    end
+    
+    Rails.logger.info "CORS: Allowed origins: #{allowed_origins.inspect}"
     
     origins allowed_origins.compact
 
