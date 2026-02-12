@@ -7,9 +7,16 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:5173', 'http://localhost:3001', 'https://editor.swagger.io'
-    # or allow all during dev:
-    # origins '*'
+    allowed_origins = [
+      'http://localhost:5173',
+      'http://localhost:3001',
+      'https://editor.swagger.io'
+    ]
+    
+    # Add production frontend URL if configured
+    allowed_origins << ENV['FRONTEND_URL'] if ENV['FRONTEND_URL'].present?
+    
+    origins allowed_origins.compact
 
     resource "*",
       headers: :any,
