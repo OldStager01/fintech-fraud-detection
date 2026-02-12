@@ -23,6 +23,24 @@ export function useTheme() {
     }
   }, [theme]);
 
+  const resolvedTheme =
+    theme === "system"
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+      : theme;
+
+  useEffect(() => {
+    // Update favicon based on theme
+    const favicon = document.querySelector(
+      'link[rel="icon"]',
+    ) as HTMLLinkElement;
+    if (favicon) {
+      favicon.href =
+        resolvedTheme === "dark" ? "/logo_s_dark.png" : "/logo_s.png";
+    }
+  }, [resolvedTheme]);
+
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -41,13 +59,6 @@ export function useTheme() {
   const changeTheme = (newTheme: Theme) => {
     dispatch(setTheme(newTheme));
   };
-
-  const resolvedTheme =
-    theme === "system"
-      ? window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light"
-      : theme;
 
   return {
     theme,

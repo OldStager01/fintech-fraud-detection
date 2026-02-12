@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import { cn } from "@/utils";
 import { navigationConfig, type NavItem } from "@/config";
 import { useAuth } from "@/features/auth/hooks";
+import { useTheme } from "@/hooks";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { setSidebarOpen } from "@/store/slices/uiSlice";
 import { Button, ScrollArea } from "@/components/ui";
@@ -51,6 +52,7 @@ function NavItemComponent({
 
 export default function MobileSidebar() {
   const { user } = useAuth();
+  const { isDark } = useTheme();
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.ui.sidebarOpen);
   const location = useLocation();
@@ -98,16 +100,16 @@ export default function MobileSidebar() {
       <aside className="fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-neutral-900 lg:hidden animate-slide-up">
         <div className="flex h-full flex-col">
           {/* Header */}
-          <div className="flex h-20 items-center justify-between border-b border-neutral-200 dark:border-neutral-800 px-4">
+          <div className="flex h-20 items-center justify-between border-b border-neutral-200 dark:border-neutral-800 px-6 py-6">
             <Link
               to="/dashboard"
               className="flex items-center justify-center gap-2 flex-1"
               onClick={handleClose}
             >
               <img
-                src="/logo.png"
+                src={isDark ? "/logo_dark.png" : "/logo.png"}
                 alt="FraudGuard"
-                className="h-20 rounded-lg object-contain"
+                className="h-30 rounded-lg object-contain"
               />
             </Link>
             <Button variant="ghost" size="icon" onClick={handleClose}>

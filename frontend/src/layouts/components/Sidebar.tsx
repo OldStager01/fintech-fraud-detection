@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/utils";
 import { navigationConfig, type NavItem } from "@/config";
 import { useAuth } from "@/features/auth/hooks";
+import { useTheme } from "@/hooks";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { toggleSidebarCollapsed } from "@/store/slices/uiSlice";
 import {
@@ -69,6 +70,7 @@ function NavItemComponent({
 
 export default function Sidebar() {
   const { user } = useAuth();
+  const { isDark } = useTheme();
   const dispatch = useAppDispatch();
   const collapsed = useAppSelector((state) => state.ui.sidebarCollapsed);
 
@@ -93,7 +95,7 @@ export default function Sidebar() {
         {/* Logo */}
         <div
           className={cn(
-            "flex h-16 items-center border-b border-neutral-200 dark:border-neutral-800 px-4",
+            "flex h-16 items-center border-b border-neutral-200 dark:border-neutral-800 px-8 py-8",
             collapsed && "justify-center px-2",
           )}
         >
@@ -103,15 +105,15 @@ export default function Sidebar() {
           >
             {collapsed ? (
               <img
-                src="/logo_s.png"
+                src={isDark ? "/logo_s_dark.png" : "/logo_s.png"}
                 alt="FraudGuard"
                 className="h-20 rounded-lg object-contain"
               />
             ) : (
               <img
-                src="/logo.png"
+                src={isDark ? "/logo_dark.png" : "/logo.png"}
                 alt="FraudGuard"
-                className="h-20 rounded-lg object-contain"
+                className="h-30 rounded-lg object-contain"
               />
             )}
           </Link>
