@@ -29,9 +29,9 @@ module FintechBackend
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    # Enable cookies and sessions middleware (session store configured in initializers/session_store.rb)
+    # Enable cookies middleware
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore
+    # Session store is configured in config/initializers/session_store.rb
 
     # SWAGGER TESTING (Use these ONLY if you need to test sessions from online Swagger Editor)
     # config.middleware.use ActionDispatch::Session::CookieStore, 
