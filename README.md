@@ -334,15 +334,3 @@ Configuration files in `frontend/`:
 2. Make your changes and write tests
 3. Run tests and linting: `npm run lint && npm run test`
 4. Submit a pull request
-
-## License
-
-[Specify your license here]
-
-## Support
-
-For issues and feature requests, please create an issue in the repository.
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for version history and updates.
